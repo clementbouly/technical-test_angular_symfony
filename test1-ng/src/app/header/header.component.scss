@@ -1,5 +1,14 @@
 @import "/src/responsive/reponsive-mixins.scss";
 
+h1 {
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  cursor: pointer;
+}
+
 :host {
   grid-area: header;
 
@@ -18,7 +27,7 @@
   margin-right: 2rem;
   display: none;
 
-  @include respond(phone) {
+  @include respond(phone, tab-port) {
     display: block;
   }
 }

@@ -7,8 +7,9 @@
   border-radius: 0.5rem;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
   padding: 1rem;
+  margin-right: 1rem;
 
-  @include respond(phone) {
+  @include respond(phone, tab-port) {
     position: fixed;
     display: none;
     z-index: 100;

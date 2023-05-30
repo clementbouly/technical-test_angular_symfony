@@ -1,4 +1,5 @@
 <app-product-item
   *ngFor="let product of products$ | async"
   [product]="product"
+  [routerLink]="['/products', product.id]"
 />

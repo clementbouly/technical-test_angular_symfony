@@ -1,0 +1,24 @@
+@import "/src/responsive/reponsive-mixins.scss";
+
+:host {
+  grid-area: cart;
+
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+
+  @include respond(phone) {
+    position: fixed;
+    display: none;
+    z-index: 100;
+    top: 5.5rem;
+    left: 0rem;
+    right: 0rem;
+    height: 95vh;
+  }
+
+  &.--open {
+    display: block !important;
+  }
+}

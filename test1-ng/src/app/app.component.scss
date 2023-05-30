@@ -1,44 +1,20 @@
+@import "/src/responsive/reponsive-mixins.scss";
+
 :host {
   height: 100vh;
   display: grid;
-  gap: 0.5rem;
+  gap: 1rem;
   grid-template-areas:
     "header header "
-    "productL cart";
+    "productList cart";
   grid-template-rows: 5rem 1fr;
-  grid-template-columns: 5fr 2fr;
+  grid-template-columns: 5fr minmax(20rem, 2fr);
   padding-bottom: 4rem;
-}
 
-.product-list {
-  grid-area: productL;
-}
-
-.header {
-  grid-area: header;
-}
-
-.cart {
-  grid-area: cart;
-  background-color: whitesmoke;
-  border-radius: 10px;
-}
-
-@media (width < 700px) {
-  :host {
+  @include respond(phone) {
     grid-template-areas:
       "header"
-      "productL";
+      "productList";
     grid-template-columns: 1fr;
-  }
-
-  .cart {
-    position: fixed;
-    display: none;
-    z-index: 100;
-    top: 5.5rem;
-    left: 0.5rem;
-    right: 0.5rem;
-    height: 95vh;
   }
 }

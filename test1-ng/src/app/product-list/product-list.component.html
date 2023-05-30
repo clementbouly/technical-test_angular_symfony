@@ -1,10 +1,4 @@
-<app-product-item />
-<app-product-item />
-<app-product-item />
-<app-product-item />
-<app-product-item />
-<app-product-item />
-<app-product-item />
-<app-product-item />
-<app-product-item />
-<app-product-item />
+<app-product-item
+  *ngFor="let product of products$ | async"
+  [product]="product"
+/>

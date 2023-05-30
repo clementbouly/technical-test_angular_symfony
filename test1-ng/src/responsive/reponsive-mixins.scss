@@ -1,0 +1,59 @@
+// 0 - 600px
+@mixin phone {
+    @media only screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+  
+  // 600px - 900px
+  @mixin tab-port {
+    @media only screen and (min-width: 37.5em) and (max-width: 56.25em) {
+      @content;
+    }
+  }
+  
+  // 900px - 1200px
+  @mixin tab-land {
+    @media only screen and (min-width: 56.25em) and (max-width: 75em) {
+      @content;
+    }
+  }
+  
+  // 1800px - §
+  @mixin big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      @content;
+    }
+  }
+  // appareils tactiles
+  @mixin touch-screens {
+    @media (hover: none) {
+      @content;
+    }
+  }
+  
+  @mixin respond($breakpoints...) {
+    @each $breakpoint in $breakpoints {
+      @if $breakpoint == phone {
+        @include phone {
+          @content;
+        }
+      } @else if $breakpoint == tab-port {
+        @include tab-port {
+          @content;
+        }
+      } @else if $breakpoint == tab-land {
+        @include tab-land {
+          @content;
+        }
+      } @else if $breakpoint == big-desktop {
+        @include big-desktop {
+          @content;
+        }
+      } @else if $breakpoint ==touch-screens {
+        @include touch-screens {
+          @content;
+        }
+      }
+    }
+  }

@@ -14,7 +14,7 @@ class ProductFixtures extends Fixture
     $faker = Factory::create();
 
     // Create and persist fake products
-    for ($i = 1; $i <= 10; $i++) {
+    for ($i = 1; $i <= 30; $i++) {
         $product = new Product();
         $product->setTitle($faker->realText(30));
         $product->setCountry($faker->countryISOAlpha3());

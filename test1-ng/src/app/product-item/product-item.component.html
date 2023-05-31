@@ -1,4 +1,9 @@
-<h3>{{ product?.title }}</h3>
+<h3>{{ product.title }}</h3>
 <p>
-  {{ product?.description }}
+  {{ product.description }}
 </p>
+<p class="price">
+  {{ product.price | currency : "EUR" }}
+</p>
+<button (click)="addToCart()">Add to cart</button>
+<button [routerLink]="['/products', product.id]">View Details</button>

@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { CartService } from '../cart.service';
+import { faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cart',
@@ -7,6 +8,12 @@ import { CartService } from '../cart.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent {
+  faTrash = faTrash;
+  faTimes = faTimes;
+
+  cartItems$ = this.cartService.cartItems$;
+  cartTotal$ = this.cartService.cartTotal$;
+
   constructor(
     private cartService: CartService,
     private renderer: Renderer2,
@@ -14,6 +21,14 @@ export class CartComponent {
   ) {}
   ngOnInit(): void {
     this.toggleCartSubscription();
+  }
+
+  clearCart(): void {
+    this.cartService.clearCart();
+  }
+
+  removeFromCart(id: number): void {
+    this.cartService.removeFromCart(id);
   }
 
   toggleCartSubscription(): void {

@@ -1,11 +1,11 @@
 @import "/src/responsive/reponsive-mixins.scss";
 
 h1 {
-  font-size: 2rem;
-  font-weight: 300;
+  font-size: 2.5rem;
+  font-weight: 500;
   margin: 0;
   padding: 0;
-  color: #333;
+  color: var(--body-color);
   cursor: pointer;
   margin-left: 2rem;
 }
@@ -14,7 +14,7 @@ h1 {
   grid-area: header;
 
   position: fixed;
-  background-color: white;
+  background-color: var(--body-bg);
   width: 100%;
   height: 4rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -27,6 +27,7 @@ h1 {
 .btn-cart {
   margin-right: 2rem;
   display: none;
+  cursor: pointer;
 
   @include respond(phone, tab-port) {
     display: block;

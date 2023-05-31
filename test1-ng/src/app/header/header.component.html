@@ -1,2 +1,7 @@
 <h1 [routerLink]="['/products']">Book Catalog</h1>
-<button class="btn-cart" (click)="toggleCart()">Cart</button>
+<fa-icon
+  [icon]="faShoppingCart"
+  [animation]="(openedCart$ | async) ? 'spin' : 'beat'"
+  class="btn-cart"
+  (click)="toggleCart()"
+></fa-icon>

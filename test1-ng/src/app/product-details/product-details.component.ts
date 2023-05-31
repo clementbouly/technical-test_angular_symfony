@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../models/Product';
+// import left arrow icon
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { CartService } from '../cart.service';
+import { CartItem } from '../models/Cart';
 
 @Component({
   selector: 'app-product-details',
@@ -9,10 +13,14 @@ import { Product } from '../models/Product';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent {
-  product: Product | undefined;
+  // add left arrow icon
+  faArrowLeft = faArrowLeft;
+  product!: Product;
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -22,5 +30,14 @@ export class ProductDetailsComponent {
         this.product = product;
       });
     });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/']);
+  }
+
+  addToCart(): void {
+    const cartItem = new CartItem(this.product, 1);
+    this.cartService.addToCart(cartItem);
   }
 }

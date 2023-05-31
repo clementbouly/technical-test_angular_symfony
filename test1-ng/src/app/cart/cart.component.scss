@@ -3,7 +3,7 @@
 :host {
   grid-area: cart;
 
-  background-color: white;
+  background-color: var(--body-bg);
   border-radius: 0.5rem;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
   padding: 1rem;
@@ -23,4 +23,34 @@
   &.--open {
     display: block !important;
   }
+}
+
+fa-icon ::ng-deep {
+  cursor: pointer;
+}
+
+h2 {
+  text-align: center;
+}
+
+.clearCart {
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  text-align: center;
+  // scrap text more than 1 line and add ...
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 5rem;
+}
+
+tr {
+  height: 2rem;
 }

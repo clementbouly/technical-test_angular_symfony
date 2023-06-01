@@ -1,7 +1,9 @@
+@import "/src/sass/buttons/buttons.scss";
+
 :root {
   box-sizing: border-box;
   font-family: "Lato", sans-serif;
-  background-color: whitesmoke;
+  background-color: hsla(0, 0%, 90%);
   --body-bg: #ffffff;
   --body-color: #000000;
 
@@ -14,16 +16,7 @@ body {
   margin: 0;
 }
 
-button {
-  background-color: transparent;
-  border: 1px solid var(--body-color);
-  padding: 5px;
+// make all font awesome icon clickable
+fa-icon {
   cursor: pointer;
-  outline: none;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: var(--body-color);
-  color: var(--body-bg);
 }

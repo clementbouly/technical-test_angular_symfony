@@ -1,4 +1,7 @@
-<h1 [routerLink]="['/products']">Book Catalog</h1>
+<div class="logo-title">
+  <fa-icon [icon]="faBook" size="3x"></fa-icon>
+  <h1 [routerLink]="['/products']">Book Catalog</h1>
+</div>
 <fa-icon
   [icon]="faShoppingCart"
   [animation]="(openedCart$ | async) ? 'spin' : 'beat'"

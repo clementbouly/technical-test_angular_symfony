@@ -1,0 +1,55 @@
+<div class="header-cart">
+  <h2>
+    {{ "Book Cart" | uppercase }}
+    <fa-icon [icon]="faTrash" (click)="confirmClearCart()" class="clearCart"></fa-icon>
+  </h2>
+  <!-- total items -->
+  <p>Vous avez {{ cart.totalItems }} livre(s) dans votre panier</p>
+</div>
+<div class="items">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Quantity</th>
+        <th>Title</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cart.items">
+        <td>
+          <input
+            type="number"
+            class="input-quantity"
+            min="1"
+            [value]="item.quantity"
+            #quantityInput
+            (input)="onQuantityInput($event, item.id, quantityInput)"
+          />
+        </td>
+        <td>{{ item.title }}</td>
+        <td>
+          {{ item.price | currency : "EUR" : "symbol" : undefined : "fr" }}
+        </td>
+        <td>
+          <fa-icon [icon]="faTimes" (click)="removeFromCart(item.id)"></fa-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- total -->
+<p class="price">
+  Total: {{ cart.total | currency : "EUR" : "symbol" : undefined : "fr" }}
+</p>
+
+<dialog #modal>
+  <p>
+    Are you sure
+    <strong>you want to clear your cart?</strong>
+  </p>
+  <form method="dialog">
+    <button type="button" (click)="clearCart()">Clear</button>
+    <button>Cancel</button>
+  </form>
+</dialog>

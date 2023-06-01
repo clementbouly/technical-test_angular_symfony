@@ -1,49 +1,88 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { CartItem } from './models/Cart';
+import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
+import { Cart, CartItem } from './models/Cart';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   openedCart$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  cartItems$: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
-  cartTotal$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  cart$: BehaviorSubject<Cart> = new BehaviorSubject<Cart>({
+    items: [],
+    total: 0,
+    totalItems: 0,
+  });
+  cartUpdate$!: Subscription;
 
   constructor() {
     this.initCartSessionStorage();
-    this.handleUpdateCartSessionStorage();
+    this.handleCartSessionStorageUpdate();
   }
 
   addToCart(cartItem: CartItem): void {
-    const currentCartItems = this.cartItems$.value;
+    const currentCartItems = this.cart$.value.items;
+
     if (currentCartItems.find((item) => item.id === cartItem.id)) {
       this.updateCartItemIfExist(cartItem);
     } else {
-      this.cartItems$.next([...currentCartItems, cartItem]);
+      this.cart$.next({
+        ...this.cart$.value,
+        items: [...currentCartItems, cartItem],
+      });
     }
-
     this.calculateTotal();
   }
 
   removeFromCart(id: Number): void {
-    const currentCartItems = this.cartItems$.value;
+    const currentCartItems = this.cart$.value.items;
     const newCartItems = currentCartItems.filter((item) => item.id !== id);
-    this.cartItems$.next(newCartItems);
+
+    this.cart$.next({
+      ...this.cart$.value,
+      items: newCartItems,
+    });
+    this.calculateTotal();
+  }
+
+  updateQuantity(id: number, quantity: number): void {
+    const currentCartItems = this.cart$.value.items;
+    const newCartItems = currentCartItems.map((item) => {
+      if (item.id === id) {
+        item.quantity = quantity;
+        return item;
+      }
+      return item;
+    });
+
+    this.cart$.next({
+      ...this.cart$.value,
+      items: newCartItems,
+    });
     this.calculateTotal();
   }
 
   clearCart(): void {
-    this.cartItems$.next([]);
-    this.cartTotal$.next(0);
+    this.cart$.next({
+      items: [],
+      total: 0,
+      totalItems: 0,
+    });
   }
 
   toggleCart(): void {
     this.openedCart$.next(!this.openedCart$.value);
   }
 
+  getCartItems(): Observable<CartItem[]> {
+    return of(this.cart$.value.items);
+  }
+
+  getCartTotal(): Observable<number> {
+    return of(this.cart$.value.total);
+  }
+
   private updateCartItemIfExist(cartItem: CartItem): void {
-    this.cartItems$.value.map((item) => {
+    this.cart$.value.items.map((item) => {
       if (item.id === cartItem.id) {
         item.quantity += cartItem.quantity;
         return item;
@@ -53,28 +92,34 @@ export class CartService {
   }
 
   private calculateTotal(): void {
-    const total = this.cartItems$.value.reduce(
+    const total = this.cart$.value.items.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
     );
-    this.cartTotal$.next(total);
+    const totalItems = this.cart$.value.items.reduce(
+      (acc, item) => acc + item.quantity,
+      0
+    );
+    this.cart$.next({
+      ...this.cart$.value,
+      total,
+      totalItems,
+    });
   }
 
   private initCartSessionStorage(): void {
-    this.cartItems$.next(
-      JSON.parse(sessionStorage.getItem('cartItems') || '[]')
-    );
-    this.cartTotal$.next(
-      JSON.parse(sessionStorage.getItem('cartTotal') || '0')
+    this.cart$.next(
+      JSON.parse(sessionStorage.getItem('cart') || '{"items": [], "total": 0}')
     );
   }
 
-  private handleUpdateCartSessionStorage(): void {
-    this.cartItems$.subscribe((cartItems) => {
-      sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+  private handleCartSessionStorageUpdate(): void {
+    this.cartUpdate$ = this.cart$.subscribe((cart) => {
+      sessionStorage.setItem('cart', JSON.stringify(cart));
     });
-    this.cartTotal$.subscribe((cartTotal) => {
-      sessionStorage.setItem('cartTotal', JSON.stringify(cartTotal));
-    });
+  }
+
+  ngOnDestroy(): void {
+    this.cartUpdate$.unsubscribe();
   }
 }

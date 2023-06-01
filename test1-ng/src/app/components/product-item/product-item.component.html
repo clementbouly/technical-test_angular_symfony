@@ -1,0 +1,10 @@
+<h3>{{ product.title }}</h3>
+<p>{{ product.ranking | starRanking }}</p>
+<p>
+  {{ product.description }}
+</p>
+<p class="price">
+  {{ product.price | currency : "EUR" : "symbol" : undefined : "fr" }}
+</p>
+<button [routerLink]="['/products', product.id]">View Details</button>
+<button (click)="addToCart()">Add to cart</button>

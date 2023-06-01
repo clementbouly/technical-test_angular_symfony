@@ -1,6 +1,6 @@
-@import "/src/responsive/reponsive-mixins.scss";
+@import "/src/sass/responsive/reponsive-mixins.scss";
 
-:host {
+.container {
   height: 100vh;
   display: grid;
   gap: 1rem;
@@ -16,4 +16,6 @@
       "main";
     grid-template-columns: 1fr;
   }
+  width: min(98%, 80rem);
+  margin: auto;
 }

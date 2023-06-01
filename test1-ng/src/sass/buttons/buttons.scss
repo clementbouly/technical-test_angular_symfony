@@ -1,0 +1,13 @@
+button {
+  background-color: transparent;
+  border: 1px solid var(--body-color);
+  padding: 5px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: var(--body-color);
+  color: var(--body-bg);
+}

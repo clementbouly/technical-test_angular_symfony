@@ -1,0 +1,29 @@
+@import "/src/sass/responsive/reponsive-mixins.scss";
+
+:host {
+  grid-area: main;
+
+  background-color: var(--body-bg);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+
+  @include respond(phone, tab-port) {
+    margin-right: 1rem;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: stretch;
+}
+
+.input-quantity {
+  width: 2.5rem;
+  text-align: center;
+  margin: 0 0.5rem;
+  font-size: 1.2rem;
+  padding: 3px;
+}

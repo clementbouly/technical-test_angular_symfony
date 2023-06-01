@@ -1,4 +1,4 @@
-@import "/src/responsive/reponsive-mixins.scss";
+@import "/src/sass/responsive/reponsive-mixins.scss";
 
 h1 {
   font-size: 2.5rem;
@@ -7,7 +7,11 @@ h1 {
   padding: 0;
   color: var(--body-color);
   cursor: pointer;
-  margin-left: 2rem;
+  margin-left: 1rem;
+
+  @include respond(phone, tab-port) {
+    font-size: 2rem;
+  }
 }
 
 :host {
@@ -32,4 +36,12 @@ h1 {
   @include respond(phone, tab-port) {
     display: block;
   }
+}
+
+.logo-title {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

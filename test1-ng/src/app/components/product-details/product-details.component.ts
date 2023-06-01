@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../product.service';
+import { ProductService } from '../../product.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from '../models/Product';
+import { Product } from '../../models/Product';
 // import left arrow icon
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { CartService } from '../cart.service';
-import { CartItem } from '../models/Cart';
+import { CartService } from '../../cart.service';
+import { CartItem } from '../../models/Cart';
+import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -13,9 +14,10 @@ import { CartItem } from '../models/Cart';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent {
-  // add left arrow icon
   faArrowLeft = faArrowLeft;
   product!: Product;
+  quantity = 1;
+
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -24,12 +26,18 @@ export class ProductDetailsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const productId = Number(params.get('id'));
-      this.productService.getProduct(productId).subscribe((product) => {
-        this.product = product;
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          const productId = Number(params.get('id'));
+          return this.productService.getProduct(productId);
+        }),
+        tap((product) => console.log(product))
+      )
+      .subscribe({
+        next: (product: Product) => (this.product = product),
+        error: (err) => console.log(err),
       });
-    });
   }
 
   goBack(): void {
@@ -37,7 +45,7 @@ export class ProductDetailsComponent {
   }
 
   addToCart(): void {
-    const cartItem = new CartItem(this.product, 1);
+    const cartItem = { ...this.product, quantity: this.quantity };
     this.cartService.addToCart(cartItem);
   }
 }

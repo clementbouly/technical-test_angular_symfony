@@ -7,10 +7,16 @@
   <p><strong>Original Title:</strong> {{ product.originalTitle }}</p>
   <p><strong>Price:</strong> {{ product.price | currency }}</p>
   <p><strong>Product Type:</strong> {{ product.productType }}</p>
-  <p><strong>Ranking:</strong> {{ product.ranking }}</p>
+  <p><strong>Ranking:</strong> {{ product.ranking | starRanking }}</p>
   <p><strong>Year:</strong> {{ product.year }}</p>
 
   <div class="actions">
     <button (click)="addToCart()">Add to cart</button>
+    <input
+      type="number"
+      class="input-quantity"
+      [(ngModel)]="quantity"
+      min="1"
+    />
   </div>
 </div>

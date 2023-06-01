@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Product } from '../models/Product';
-import { CartService } from '../cart.service';
-import { CartItem } from '../models/Cart';
+import { Product } from '../../models/Product';
+import { CartService } from '../../cart.service';
+import { CartItem } from '../../models/Cart';
 
 @Component({
   selector: 'app-product-item',
@@ -14,7 +14,7 @@ export class ProductItemComponent {
   constructor(private cartService: CartService) {}
 
   addToCart() {
-    const cartItem = new CartItem(this.product, 1);
+    const cartItem = { ...this.product, quantity: 1 };
     this.cartService.addToCart(cartItem);
   }
 }

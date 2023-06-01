@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CartService } from '../cart.service';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { CartService } from '../../cart.service';
+import { faShoppingCart, faBook } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +9,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 })
 export class HeaderComponent {
   faShoppingCart = faShoppingCart;
+  faBook = faBook;
   openedCart$ = this.cartService.openedCart$;
 
   constructor(private cartService: CartService) {}

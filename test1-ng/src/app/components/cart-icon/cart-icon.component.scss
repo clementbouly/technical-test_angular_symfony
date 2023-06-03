@@ -1,0 +1,29 @@
+@import "/src/sass/responsive/reponsive-mixins.scss";
+
+:host {
+  flex: 1;
+  display: none;
+
+  @include respond(phone, tab-port) {
+    display: block;
+  }
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-items-count {
+  position: absolute;
+  top: 1rem;
+  left: 1.2rem;
+  background-color: red;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  width: 1rem;
+  display: grid;
+  place-content: center;
+  font-size: 0.6rem;
+  color: white;
+  font-weight: 500;
+}

@@ -8,15 +8,6 @@ import { faShoppingCart, faBook } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  faShoppingCart = faShoppingCart;
   faBook = faBook;
-  openedCart$ = this.cartService.openedCart$;
-
-  constructor(private cartService: CartService) {}
-
-  ngOnInit(): void {}
-
-  toggleCart(): void {
-    this.cartService.toggleCart();
-  }
+  
 }

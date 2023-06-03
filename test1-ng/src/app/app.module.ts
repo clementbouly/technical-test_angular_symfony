@@ -14,6 +14,7 @@ import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StarRankingPipe } from './pipes/star-ranking.pipe';
+import { CartIconComponent } from './components/cart-icon/cart-icon.component';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -25,6 +26,7 @@ registerLocaleData(localeFr);
     ProductDetailsComponent,
     CartComponent,
     StarRankingPipe,
+    CartIconComponent,
   ],
   imports: [
     BrowserModule,

@@ -35,6 +35,7 @@ export class CartComponent {
     this.cartSubscription = this.cartService.cart$.subscribe((cart) => {
       this.cart = cart;
     });
+    console.log(this.cart);
   }
 
   confirmClearCart(): void {
